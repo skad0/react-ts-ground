@@ -1,0 +1,19 @@
+.App {
+  display: flex;
+  flex-direction: row;
+
+  width: 80%;
+
+  margin: 15px auto;
+}
+
+.App-Sidebar {
+  display: flex;
+  flex-direction: column;
+
+  width: 25%;
+}
+
+.App-Content {
+  width: 75%;
+}
