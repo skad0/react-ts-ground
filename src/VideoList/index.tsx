@@ -4,7 +4,7 @@ import {IVideo} from '../types';
 
 interface IProps {
     list: IVideo[];
-    handleChoose: (url: string) => void;
+    handleChoose: (video: IVideo) => void;
 }
 
 class VideoList extends React.Component<IProps> {
@@ -18,7 +18,7 @@ class VideoList extends React.Component<IProps> {
                         <ul>
                             {list.map((video, index) => {
                                 return <li key={index}
-                                        onClick={this.onVideoClick.bind(this, video.url)}>
+                                        onClick={this.onVideoClick.bind(this, video)}>
                                     {video.url}
                                 </li>;
                             })}
@@ -29,8 +29,8 @@ class VideoList extends React.Component<IProps> {
         );
     }
 
-    private onVideoClick(url: string):void {
-        this.props.handleChoose(url);
+    private onVideoClick(video: IVideo):void {
+        this.props.handleChoose(video);
     }
 }
 

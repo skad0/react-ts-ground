@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import {usedRegExp} from '../helpers';
+
 import './AddForm.css';
 
 interface IProps {
@@ -48,9 +50,9 @@ class AddForm extends React.Component<IProps> {
         this.props.handleAdd(value);
 
         function validateInput(url: string):boolean {
-            const matchRegexp: RegExp = /\?v=([a-zA-Z0-9]+)/;
+            const matchRegexp: RegExp = usedRegExp.YOUTUBE_VIDEO_ID;
 
-            return url.length === 0 || matchRegexp.test(url);
+            return matchRegexp.test(url);
         }
     }
 }

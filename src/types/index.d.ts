@@ -3,6 +3,6 @@ export interface IVideo {
 }
 
 export interface IApplicationState {
-    currentVideo: {};
+    currentVideo: IVideo|null;
     videoList: IVideo[];
 }
