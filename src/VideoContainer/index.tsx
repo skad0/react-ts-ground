@@ -7,7 +7,7 @@ import './VideoContainer.css';
 
 interface IProps {
     video: IVideo;
-    onEnded: () => void
+    onEnded?: () => void
 };
 
 class VideoContainer extends React.Component<IProps> {

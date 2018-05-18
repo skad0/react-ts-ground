@@ -6,7 +6,7 @@ import './VideoList.css';
 
 interface IProps {
     list: IVideo[];
-    handleChoose: (video: IVideo) => void;
+    handleChoose?: (video: IVideo) => void;
 }
 
 class VideoList extends React.Component<IProps> {
@@ -33,7 +33,13 @@ class VideoList extends React.Component<IProps> {
     }
 
     private onVideoClick(video: IVideo):void {
-        this.props.handleChoose(video);
+        const {handleChoose} = this.props;
+
+        if (!handleChoose) {
+            return;
+        }
+
+        handleChoose(video);
     }
 }
 

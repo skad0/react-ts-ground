@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddForm renders correctly 1`] = `
+<div
+  className="AddForm"
+>
+  <form
+    className="AddForm-Form"
+    onSubmit={[Function]}
+  >
+    <input
+      className="AddForm-Input"
+      placeholder="Enter Youtube's url"
+      type="text"
+    />
+    <button
+      className="AddForm-Button"
+    >
+      +
+    </button>
+  </form>
+</div>
+`;
