@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import {IVideo} from '../types';
 
+import './VideoList.css';
+
 interface IProps {
     list: IVideo[];
     handleChoose: (video: IVideo) => void;
@@ -15,10 +17,11 @@ class VideoList extends React.Component<IProps> {
             <div className="VideoList">
                 {
                     list.length > 0 ?
-                        <ul>
+                        <ul className="VideoList-List">
                             {list.map((video, index) => {
                                 return <li key={index}
-                                        onClick={this.onVideoClick.bind(this, video)}>
+                                        onClick={this.onVideoClick.bind(this, video)}
+                                        className={`VideoList-Item ${video.current ? 'VideoList-Item_current' : ''}`}>
                                     {video.url}
                                 </li>;
                             })}

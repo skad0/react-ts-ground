@@ -22,8 +22,11 @@ class AddForm extends React.Component<IProps> {
     public render() {
         return (
             <div className="AddForm">
-                <form onSubmit={this.onAdd}>
-                    <input type="text" className="AddForm-Input" ref={this.input}  />
+                <form onSubmit={this.onAdd} className="AddForm-Form">
+                    <input type="text"
+                        className="AddForm-Input"
+                        ref={this.input}
+                        placeholder="Enter Youtube's url" />
                     <button className="AddForm-Button">+</button>
                 </form>
             </div>
@@ -50,7 +53,7 @@ class AddForm extends React.Component<IProps> {
         this.props.handleAdd(value);
 
         function validateInput(url: string):boolean {
-            const matchRegexp: RegExp = usedRegExp.YOUTUBE_VIDEO_ID;
+            const matchRegexp: RegExp = usedRegExp.YOUTUBE_VIDEO_URL;
 
             return matchRegexp.test(url);
         }

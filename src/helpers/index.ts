@@ -3,5 +3,5 @@ interface IRegExpContainer {
 };
 
 export const usedRegExp: IRegExpContainer = {
-    YOUTUBE_VIDEO_ID: /\?v=([a-z0-9]+)/i
+    YOUTUBE_VIDEO_URL: /^http(s)?:\/\/([a-z0-9]+\.|)youtube.com(.*)\?v=([a-z0-9_-]+)/i
 };
