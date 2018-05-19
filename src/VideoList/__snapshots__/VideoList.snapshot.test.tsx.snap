@@ -41,3 +41,25 @@ exports[`VideoList renders correctly with active video 1`] = `
   </ul>
 </div>
 `;
+
+exports[`VideoList renders correctly with remove provided 1`] = `
+<div
+  className="VideoList"
+>
+  <ul
+    className="VideoList-List"
+  >
+    <li
+      className="VideoList-Item "
+      onClick={[Function]}
+    >
+      <button
+        className="VideoList-RemoveItem"
+      >
+        X
+      </button>
+      https://www.youtube.com/watch?v=OkwplGEUhkM
+    </li>
+  </ul>
+</div>
+`;

@@ -18,6 +18,14 @@ describe('VideoList', () => {
         expect(tree).toMatchSnapshot();
     });
 
+    it('renders correctly with remove provided', () => {
+        const cb = (v: IVideo) => { return; };
+        const tree = renderer
+            .create(<VideoList list={[video]} handleRemove={cb} />)
+            .toJSON();
+        expect(tree).toMatchSnapshot();
+    });
+
     it('renders correctly with active video', () => {
         const tree = renderer
             .create(<VideoList list={[Object.assign({current: true}, video)]} />)
