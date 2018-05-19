@@ -27,3 +27,8 @@
 .VideoList-Item_current {
     background: #ffdb4d;
 }
+
+.VideoList-RemoveItem {
+    background: transparent;
+    border: 0;
+}

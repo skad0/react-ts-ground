@@ -8,3 +8,7 @@ export interface IApplicationState {
     currentVideo: IVideo|null;
     videoList: IVideo[];
 }
+
+export interface HTMLUListEvent extends Event {
+    target: HTMLUListElement & EventTarget;
+}

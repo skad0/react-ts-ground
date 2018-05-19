@@ -9,12 +9,40 @@ import {IApplicationState, IVideo} from './types';
 
 function setCurrent(list: IVideo[], id: number): IVideo[] {
   return list.map((video) => {
-    if (video.id === id) {
-      return Object.assign({current: true}, video);
+    return Object.assign({}, video, {current: video.id === id});
+  });
+}
+
+function processRemoval(videoList: IVideo[], removedVideo: IVideo) {
+  const newVideoList: IVideo[] = [];
+  const listLength: number = videoList.length;
+
+  let nextVideoIndex: number = 0;
+
+  for (let i = 0; i < listLength; i++) {
+    const video = videoList[i];
+    const isForRemoval = video.id === removedVideo.id;
+
+    if (video.current) {
+      if (isForRemoval) {
+        nextVideoIndex = (i + 1) === listLength ?
+          0 :
+          i + 1;
+      } else {
+        nextVideoIndex = i;
+      }
     }
 
-    return video;
-  });
+    if (!isForRemoval) {
+      newVideoList.push(video);
+    }
+  }
+
+  const nextVideo: IVideo|null = newVideoList.length ?
+    videoList[nextVideoIndex] :
+    null;
+
+  return { nextVideo, videoList: newVideoList };
 }
 
 class App extends React.Component<any> {
@@ -31,16 +59,20 @@ class App extends React.Component<any> {
     this.onVideoAdd = this.onVideoAdd.bind(this);
     this.onVideoChoosen = this.onVideoChoosen.bind(this);
     this.onVideoEnded = this.onVideoEnded.bind(this);
+    this.onVideoRemove = this.onVideoRemove.bind(this);
   }
 
   public render() {
     const {videoList, currentVideo} = this.state;
-    console.log(currentVideo);
+
     return (
       <div className="App">
         <div className="App-Sidebar">
           <AddForm handleAdd={this.onVideoAdd} />
-          <VideoList list={videoList} handleChoose={this.onVideoChoosen} />
+          <VideoList
+            list={videoList}
+            handleChoose={this.onVideoChoosen}
+            handleRemove={this.onVideoRemove} />
         </div>
         <div className="App-Content">
           {currentVideo ?
@@ -55,6 +87,16 @@ class App extends React.Component<any> {
     this.setState({
       currentVideo: curVideo,
       videoList: setCurrent(this.state.videoList, curVideo.id)
+    });
+  }
+
+  private onVideoRemove(video: IVideo) {
+    const {videoList} = this.state;
+    const {videoList: newVideoList, nextVideo} = processRemoval(videoList, video);
+
+    this.setState({
+      currentVideo: nextVideo,
+      videoList: nextVideo ? setCurrent(newVideoList, nextVideo.id) : newVideoList
     });
   }
 
@@ -73,26 +115,7 @@ class App extends React.Component<any> {
       return;
     }
 
-    const newVideoList: IVideo[] = [];
-    const listLength: number = videoList.length;
-
-    let nextVideoIndex: number = 0;
-
-    for (let i = 0; i < listLength; i++) {
-      const video = videoList[i];
-
-      if (video.current) {
-        nextVideoIndex = (i + 1) === listLength ?
-          0 :
-          i + 1;
-      } else {
-        newVideoList.push(video);
-      }
-    }
-
-    const nextVideo: IVideo|null = newVideoList.length ?
-      videoList[nextVideoIndex] :
-      null;
+    const {videoList: newVideoList, nextVideo} = processRemoval(videoList, currentVideo);
 
     this.setState({
       currentVideo: nextVideo,

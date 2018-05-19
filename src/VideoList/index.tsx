@@ -1,12 +1,13 @@
 import * as React from 'react';
 
-import {IVideo} from '../types';
+import {HTMLUListEvent, IVideo} from '../types';
 
 import './VideoList.css';
 
 interface IProps {
     list: IVideo[];
     handleChoose?: (video: IVideo) => void;
+    handleRemove?: (video: IVideo) => void;
 }
 
 class VideoList extends React.Component<IProps> {
@@ -27,23 +28,31 @@ class VideoList extends React.Component<IProps> {
     }
 
     private renderListOptions(list: IVideo[]):JSX.Element[] {
+        const {handleRemove} = this.props;
+
         return list.map((video, index) => {
             return <li key={index}
                     onClick={this.onVideoClick.bind(this, video)}
                     className={`VideoList-Item ${video.current ? 'VideoList-Item_current' : ''}`}>
+                {handleRemove && <button className="VideoList-RemoveItem">X</button>}
                 {video.url}
             </li>;
         });
     }
 
-    private onVideoClick(video: IVideo):void {
-        const {handleChoose} = this.props;
+    private onVideoClick(video: IVideo, e: HTMLUListEvent):void {
+        const {handleChoose, handleRemove} = this.props;
+        const target: HTMLUListElement|null = e.target;
 
-        if (!handleChoose) {
+        if (!target) {
             return;
         }
 
-        handleChoose(video);
+        if (target.classList.contains('VideoList-RemoveItem') && handleRemove) {
+            handleRemove(video);
+        } else if (handleChoose) {
+            handleChoose(video);
+        }
     }
 }
 
