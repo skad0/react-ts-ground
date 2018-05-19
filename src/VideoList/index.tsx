@@ -18,18 +18,22 @@ class VideoList extends React.Component<IProps> {
                 {
                     list.length > 0 ?
                         <ul className="VideoList-List">
-                            {list.map((video, index) => {
-                                return <li key={index}
-                                        onClick={this.onVideoClick.bind(this, video)}
-                                        className={`VideoList-Item ${video.current ? 'VideoList-Item_current' : ''}`}>
-                                    {video.url}
-                                </li>;
-                            })}
+                            {this.renderListOptions.call(this, list)}
                         </ul> :
                         'No videos provided yet'
                 }
             </div>
         );
+    }
+
+    private renderListOptions(list: IVideo[]):JSX.Element[] {
+        return list.map((video, index) => {
+            return <li key={index}
+                    onClick={this.onVideoClick.bind(this, video)}
+                    className={`VideoList-Item ${video.current ? 'VideoList-Item_current' : ''}`}>
+                {video.url}
+            </li>;
+        });
     }
 
     private onVideoClick(video: IVideo):void {

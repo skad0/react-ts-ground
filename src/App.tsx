@@ -35,7 +35,7 @@ class App extends React.Component<any> {
 
   public render() {
     const {videoList, currentVideo} = this.state;
-
+    console.log(currentVideo);
     return (
       <div className="App">
         <div className="App-Sidebar">
@@ -90,7 +90,9 @@ class App extends React.Component<any> {
       }
     }
 
-    const nextVideo: IVideo|null = videoList[nextVideoIndex] || null;
+    const nextVideo: IVideo|null = newVideoList.length ?
+      videoList[nextVideoIndex] :
+      null;
 
     this.setState({
       currentVideo: nextVideo,
