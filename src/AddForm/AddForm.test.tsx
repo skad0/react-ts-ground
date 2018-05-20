@@ -34,7 +34,6 @@ describe('AddForm', () => {
         });
         wrapper.find('.AddForm-Button').simulate('click');
 
-
         expect(handleAdd).not.toBeCalled();
     });
 });
